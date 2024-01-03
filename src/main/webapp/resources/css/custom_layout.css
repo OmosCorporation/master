@@ -1,0 +1,42 @@
+
+/* 
+    Created on : 2023/08/22, 22:16:38
+    Author     : Takuto Esumi
+*/
+
+body {
+    background-color: #00539f;
+}
+h1 {
+    /*font-size: 1.2em;*/
+}
+
+.error{
+    font-size: 0.7em;
+}
+
+
+
+.header-text {
+/*    text-align: center;
+    background-color: #3498db;  ヘッダーの背景色を指定 
+    color: white;  テキストの文字色を白に設定 
+    padding: 10px;*/
+
+}
+    
+.top_layout {
+    text-align: center;
+    background-color: #3498db;
+    color: white;
+    /*padding: 10px;*/
+    padding: 0;
+}
+
+.page_title {
+    /* ここにスタイルを追加 */
+    font-size: 18px; /* 例: フォントサイズを18ピクセルに設定 */
+    color: white; /* 例: テキストカラーをダークグレーに設定 */
+    background-color: #00539f;
+    /* 他に必要なスタイルがあれば適宜追加してください */
+}

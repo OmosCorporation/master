@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title><h:outputText value="#{TreeNotePage.pageTabName}" /></title>
+        <h:outputStylesheet library="css" name="custom_layout.css"/>
+    </h:head>
+    <h:body>
+        <h:form id="tree_form">
+            <h:outputText  class="page_title" value="#{TreeNotePage.pageTitle}"/>
+            <p:tree id="treeBodyArea" value="#{TreeNotePage.root}" var="node" dynamic="true" >
+                <p:treeNode>
+                    <h:panelGroup>
+                        <p:inputTextarea value="#{node.noteText}">
+                            <p:ajax event="change" listener="#{TreeNotePage.registNode(node)}"/>
+                        </p:inputTextarea>
+                        <p:commandButton value="+" actionListener="#{TreeNotePage.addNode(node)}" update="treeBodyArea"/>
+                    </h:panelGroup>
+                </p:treeNode>
+            </p:tree>
+            <p:commandButton value="Regist" actionListener="#{TreeNotePage.regist()}" action="/master_tree.xhtml"/>
+        </h:form>
+    </h:body>
+</html>
