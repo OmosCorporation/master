@@ -10,13 +10,23 @@
     <h:body>
         <h:form id="tree_form">
             <h:outputText  class="page_title" value="#{TreeNotePage.pageTitle}"/>
-            <p:tree id="treeBodyArea" value="#{TreeNotePage.root}" var="node" dynamic="true" >
+            <p:tree id="treeBodyArea" value="#{TreeNotePage.root}" 
+                            var="node" 
+                            dynamic="true" 
+                            widgetVar="treeWidget">
+<!--                                            droppable="true" 
+                            draggable="true"-->
                 <p:treeNode>
                     <h:panelGroup>
                         <p:inputTextarea value="#{node.noteText}">
-                            <p:ajax event="change" listener="#{TreeNotePage.registNode(node)}"/>
+                            <p:ajax event="change" listener="#{TreeNotePage.updateNode(node)}"/>
                         </p:inputTextarea>
-                        <p:commandButton value="+" actionListener="#{TreeNotePage.addNode(node)}" update="treeBodyArea"/>
+                        <!--<span id="addNodeButton" class = "pi pi-plus">-->
+                            <p:commandButton value="+" actionListener="#{TreeNotePage.addNode(node)}" update="treeBodyArea"/>
+                        <!--</span>-->
+                        <!--<span id="deleteNodeButton" class = "pi pi-times">-->
+                            <p:commandButton value="×" actionListener="#{TreeNotePage.deleteNode(node)}" update="treeBodyArea"/>
+                        <!--</span>-->
                     </h:panelGroup>
                 </p:treeNode>
             </p:tree>
