@@ -9,7 +9,10 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -33,6 +36,7 @@ public class TreeNotePage extends BasePage{
     private String pageTitle;
     
     private TreeNode root;
+    private Map<Integer, TreeNode> nodeMap;
     private List<Notes> notesList;
 //    private TreeNode selectedNode;
 //    private String newNodeText;
@@ -47,77 +51,91 @@ public class TreeNotePage extends BasePage{
         this.pageTabName = "TreeNote - Web";
         this.pageTitle = "TreeNote";
         notesList = this.notesService.getAll();
-        setTree();
+        initTree();
     }
     
-    public void setTree(){
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Action">
+    public void initTree(){
         // treeインスタンスを作成
-        root = new DefaultTreeNode("Root", null);
-        // 親がいないnotesをrootに設定
-        for(Notes notes : notesList){
-            if (Util.nb(notes.getParentRid())) {
-                TreeNode node = new DefaultTreeNode(notes, root);
-            }
+        this.root = new DefaultTreeNode("Root", null);
+        // ノードのマップを作成（noteRidをキーとする）
+        this.nodeMap = new HashMap<>();
+
+        // ノードのマップを初期化
+        for (Notes note : notesList) {
+            TreeNode node = new DefaultTreeNode(note, root);
+            nodeMap.put(note.getNoteRid(), node);
         }
-        // 親がいるnotesを親treeに詰める
-        for(Object parents : this.root.getChildren()){
-            TreeNode parentNode = (TreeNode) parents;
-            Notes parentNote =  (Notes) parentNode.getData();
-            for(Notes childNote : notesList){
-                if(parentNote.getNoteRid().equals(childNote.getParentRid())){
-                    TreeNode childNode = new DefaultTreeNode(childNote);
-                    parentNode.getChildren().add(childNode);
+
+        // ツリーの親子関係を設定
+        for (Notes note : notesList) {
+            TreeNode currentNode = nodeMap.get(note.getNoteRid());
+            Integer parentRid = note.getParentRid();
+
+            if (parentRid != null) {
+                // 親ノードを取得し、子ノードとして追加
+                TreeNode parentNode = nodeMap.get(parentRid);
+                if (parentNode != null) {
+                    parentNode.getChildren().add(currentNode);
                 }
             }
         }
     }
-    
-    public void registNode(Notes note){
+
+    public void updateNode(Notes note){
         this.NotesFacade.edit(note);
     }
     
     public void regist(){
-        for(Object obj : this.root.getChildren()){
-            TreeNode node = (TreeNode) obj;
-        }
+//        for(Object obj : this.root.getChildren()){
+//            TreeNode node = (TreeNode) obj;
+//        }
     }
     
     public void addNode(Notes targetNote){
-        for(Notes notes : notesList){
-            if(notes.getNoteRid().equals(targetNote.getNoteRid())){
-                TreeNode targetNode = getNode(targetNote);
-                Notes note = new Notes();
-                Date now = new Date();
-                note.setCreateDt(now);
-                note.setUpdateDt(now);
-                this.NotesFacade.create(note);
-                //TreeNodeにnodeを新規作成
-                TreeNode node = new DefaultTreeNode(note, targetNode);
-            }
+        
+        if(!Util.nb(targetNote)){
+            TreeNode targetNode = nodeMap.get(targetNote.getNoteRid());
+            Notes note = new Notes();
+            Date now = new Date();
+            note.setCreateDt(now);
+            note.setUpdateDt(now);
+            Notes parentNote = (Notes) targetNode.getData();
+            note.setParentRid(parentNote.getNoteRid());
+            this.NotesFacade.create(note);
+            //TreeNodeにnodeを新規作成
+            TreeNode node = new DefaultTreeNode(note, targetNode);
+            nodeMap.put(note.getNoteRid(), node);
+            targetNode.setExpanded(true);
         }
     }
 
-    public TreeNode getNode(Notes note){
-        TreeNode targetNode = null;
-        for(Object obj : this.root.getChildren()){
-            TreeNode node = (TreeNode) obj;
-            Notes targetNote = (Notes) node.getData();
-            if(note.getNoteRid().equals(targetNote.getNoteRid())){
-                targetNode = node;
-            }
-            if(node.getChildCount() > 0){
-                List<TreeNode> nodes = node.getChildren();
-                for(TreeNode childNode : nodes){
-                    Notes childNote = (Notes) childNode.getData();
-                    targetNode = getNode(childNote);
+    public void deleteNode(Notes targetNote){
+        if(!Util.nb(targetNote)){
+            TreeNode targetNode = nodeMap.get(targetNote.getNoteRid());
+            //配下のnodeがある場合全て削除
+            if(targetNode.getChildCount() > 0){
+                for(Object obj : targetNode.getChildren()){
+                    TreeNode node = (TreeNode) obj;
+                    Notes note = (Notes) node.getData();
+                    nodeMap.remove(note.getNoteRid());
+                    this.NotesFacade.remove(note, true);
                 }
             }
+            if(!Util.nb(targetNote.getParentRid())){
+                TreeNode parentNode = nodeMap.get(targetNote.getParentRid());
+                parentNode.getChildren().remove(targetNode);
+            }else{
+                nodeMap.remove(targetNote.getNoteRid());
+            }
+            this.NotesFacade.remove(targetNote, true);
+            PrimeFaces.current().executeScript("PF('treeWidget').update();");
         }
-        return targetNode;
     }
-    //</editor-fold>
     
-
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Getter,Setter">   
     public String getPageTabName() {

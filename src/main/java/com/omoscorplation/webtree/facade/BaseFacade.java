@@ -20,6 +20,7 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -75,6 +76,24 @@ public abstract class BaseFacade<T> implements Serializable{
         getEntityManager().detach(entity);
         getEntityManager().merge(entity);
         getEntityManager().flush();
+    }
+    
+    /**
+     * 削除処理
+     *
+     * @param entity
+     * @param deleteMode
+     */
+    public void remove(T entity, boolean isPhysicalDelete) {
+        if (isPhysicalDelete) {
+            getEntityManager().remove(getEntityManager().merge(entity));
+            getEntityManager().flush();
+        } else {
+//            Date now = new Date(); 
+//            ClassStructure.set(entity, "deleteflg", 1);
+//            ClassStructure.set(entity, "deletedt", now);
+//            edit(entity);
+        }
     }
     
     /**
