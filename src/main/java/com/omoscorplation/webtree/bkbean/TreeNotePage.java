@@ -66,6 +66,9 @@ public class TreeNotePage extends BasePage{
         // ノードのマップを初期化
         for (Notes note : notesList) {
             TreeNode node = new DefaultTreeNode(note, root);
+            if(node.isLeaf()){
+                node.setExpanded(true);
+            }
             nodeMap.put(note.getNoteRid(), node);
         }
 
@@ -131,7 +134,7 @@ public class TreeNotePage extends BasePage{
                 nodeMap.remove(targetNote.getNoteRid());
             }
             this.NotesFacade.remove(targetNote, true);
-            PrimeFaces.current().executeScript("PF('treeWidget').update();");
+//            PrimeFaces.current().executeScript("PF('treeWidget').update();");
         }
     }
     

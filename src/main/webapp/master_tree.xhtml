@@ -10,24 +10,22 @@
     <h:body>
         <h:form id="tree_form">
             <h:outputText  class="page_title" value="#{TreeNotePage.pageTitle}"/>
-            <p:tree id="treeBodyArea" value="#{TreeNotePage.root}" 
+            <p:tree id="treeBodyArea" class="main_color_style" value="#{TreeNotePage.root}" 
                             var="node" 
+                            datakey="#{node.noteRid}"
                             dynamic="true" 
-                            widgetVar="treeWidget">
-<!--                                            droppable="true" 
-                            draggable="true"-->
-                <p:treeNode>
-                    <h:panelGroup>
-                        <p:inputTextarea value="#{node.noteText}">
-                            <p:ajax event="change" listener="#{TreeNotePage.updateNode(node)}"/>
-                        </p:inputTextarea>
-                        <!--<span id="addNodeButton" class = "pi pi-plus">-->
-                            <p:commandButton value="+" actionListener="#{TreeNotePage.addNode(node)}" update="treeBodyArea"/>
-                        <!--</span>-->
-                        <!--<span id="deleteNodeButton" class = "pi pi-times">-->
-                            <p:commandButton value="×" actionListener="#{TreeNotePage.deleteNode(node)}" update="treeBodyArea"/>
-                        <!--</span>-->
-                    </h:panelGroup>
+                            animate="true"
+                            widgetVar="treeWidget" >
+                <p:treeNode id="treenode">
+<!--                    <p:inputText class="main_color_style" id="noteTextTitle" value="#{node.noteTitle}"/>
+                    <br/>-->
+                    <p:inputTextarea id="noteTextArea" class="main_color_style" cols="50" rows="1" value="#{node.noteText}" maxlength="1000" >
+                        <p:ajax event="change" listener="#{TreeNotePage.updateNode(node)}"/>
+                    </p:inputTextarea>
+                    <span></span>
+                        <p:commandButton value="+" actionListener="#{TreeNotePage.addNode(node)}" update="tree_form:treeBodyArea"/>
+                    <span></span>
+                        <p:commandButton value="×" actionListener="#{TreeNotePage.deleteNode(node)}" update="treeBodyArea"/>
                 </p:treeNode>
             </p:tree>
             <p:commandButton value="Regist" actionListener="#{TreeNotePage.regist()}" action="/master_tree.xhtml"/>
