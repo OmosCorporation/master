@@ -2,6 +2,7 @@
 package com.omoscorplation.webtree.bkbean;
 
 import com.omoscorplation.webtree.common.CommonPage;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -12,9 +13,10 @@ public class BasePage extends CommonPage{
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private transient Logger logger;
-    
+    private Integer rid;
+    private Set<Integer> ridSet;
     //</editor-fold>
-    
+
     //<editor-fold defaultstate="collapsed" desc="initialize">
     @Override
     public void init(){}
@@ -39,6 +41,23 @@ public class BasePage extends CommonPage{
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Getter,Setter">   
+    
+    public Integer getRid() {
+        return rid;
+    }
+
+    public void setRid(Integer rid) {
+        this.rid = rid;
+    }
+
+    public Set<Integer> getRidSet() {
+        return ridSet;
+    }
+
+    public void setRidSet(Set<Integer> ridSet) {
+        this.ridSet = ridSet;
+    }
+    
     //</editor-fold>
     
 }

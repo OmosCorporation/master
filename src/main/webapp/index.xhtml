@@ -6,11 +6,26 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
+         <style>
+            body {
+                margin: 0; /* デフォルトのマージンを削除 */
+                padding: 0; /* デフォルトのパディングを削除 */
+                box-sizing: border-box; /* ボックスモデルをborder-boxに設定 */
+            }
+            html, body, form {
+                display: flex; align-items: center; justify-content: center;
+                height: 100%; /* bodyとhtml要素を100%の高さに設定 */
+            }
+        </style>
     </h:head>
     <h:body>
-        <h:form>
-                <p:commandButton value="START" action="#{IndexPage.next()}"  
-                                 style="background-color: #778899; border: none; display: block; margin: 0 auto;"
+        <h:form style="text-align: center;">
+                <p:commandButton value="Test START" action="/test.xhtml?faces-redirect=true"  
+                                 style="background-color: lightslategray; color: #fff;  border: 1px solid #fff; padding: 10px 20px; display: block; margin: 0 auto; margin-top: 10px; cursor: pointer;"
+                                 />
+                <!--background-color: #778899; color: #fff;-->
+                <p:commandButton value="Tree START" action="#{IndexPage.next()}"  
+                                 style="background-color: #305471; color: #fff; border: 1px solid #fff; padding: 10px 20px; display: block; margin: 0 auto; margin-top: 10px; cursor: pointer;"
                                  />
         </h:form>
     </h:body>

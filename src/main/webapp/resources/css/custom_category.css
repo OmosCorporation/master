@@ -1,0 +1,29 @@
+
+/* 
+    Created on : 2023/08/22, 22:16:38
+    Change on : 2024/01/07
+    Author     : Takuto Esumi
+*/
+
+/*Elements*/
+
+body #category_form {
+    float: left;
+    
+}
+form .panel_category{
+    float: right;
+    /*border-radius:10px;*/
+   /*border: 1px solid #fff;*/ 
+}
+
+form .category_btn{
+    width: 190px;
+    border-radius:16px;
+    float: left; 
+    /*background-color: #e6e6fa;*/ 
+    /*color: black;*/ 
+    border: 1px solid #fff; 
+    padding: 10px 60px; 
+    margin:0 0 3px 0 ;
+}

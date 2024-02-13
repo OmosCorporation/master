@@ -5,30 +5,67 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title><h:outputText value="#{TreeNotePage.pageTabName}" /></title>
-        <h:outputStylesheet library="css" name="custom_layout.css"/>
+        <h:outputStylesheet library="css" name="custom_tree.css"/>
     </h:head>
     <h:body>
-        <h:form id="tree_form">
-            <h:outputText  class="page_title" value="#{TreeNotePage.pageTitle}"/>
-            <p:tree id="treeBodyArea" class="main_color_style" value="#{TreeNotePage.root}" 
-                            var="node" 
-                            datakey="#{node.noteRid}"
-                            dynamic="true" 
-                            animate="true"
-                            widgetVar="treeWidget" >
-                <p:treeNode id="treenode">
-<!--                    <p:inputText class="main_color_style" id="noteTextTitle" value="#{node.noteTitle}"/>
-                    <br/>-->
-                    <p:inputTextarea id="noteTextArea" class="main_color_style" cols="50" rows="1" value="#{node.noteText}" maxlength="1000" >
-                        <p:ajax event="change" listener="#{TreeNotePage.updateNode(node)}"/>
-                    </p:inputTextarea>
-                    <span></span>
-                        <p:commandButton value="+" actionListener="#{TreeNotePage.addNode(node)}" update="tree_form:treeBodyArea"/>
-                    <span></span>
-                        <p:commandButton value="×" actionListener="#{TreeNotePage.deleteNode(node)}" update="treeBodyArea"/>
-                </p:treeNode>
-            </p:tree>
-            <p:commandButton value="Regist" actionListener="#{TreeNotePage.regist()}" action="/master_tree.xhtml"/>
-        </h:form>
+            <h:form id="tree_form">
+                    <p:commandButton value="AddNode" actionListener="#{TreeNotePage.addRote()}"  update="tree_form:treeBodyArea"
+                                     style="background-color: #778899; color: #fff; border: 1px solid #fff; padding: 10px 60px; margin:0 0 0 0 ;"/>
+
+                    <!--Node Expand Button-->
+                    <p:commandButton  id="expandBtn" 
+                                   value="#{TreeNotePage.getExpandModeName()}" 
+                                   actionListener="#{TreeNotePage.changeExpandlMode()}" 
+                                   update="tree_form:treeBodyArea tree_form:expandBtn"
+                                   style="background-color: #778899; color: #fff; border: 1px solid #fff; padding: 10px 60px; margin:0 0 0 0 ;"/>
+                    <!--Node delete Button Off-->
+                    <p:commandButton  id="delModeBtn" 
+                                        value="#{TreeNotePage.getNameDelMode()}" 
+                                        actionListener="#{TreeNotePage.changeDelMode()}" 
+                                        update="tree_form:treeBodyArea tree_form:delModeBtn"
+                                        style="background-color: #778899; color: #fff; border: 1px solid #fff; padding: 10px 60px;"/>
+                <p:tree id="treeBodyArea" class="main_color_style" value="#{TreeNotePage.root}"  cache="false"
+                                var="node" 
+                                datakey="#{node.noteRid}"
+                                dynamic="true" 
+                                animate="true"
+                                widgetVar="treeWidget" 
+                                styleClass="tree-table-class"
+                                >
+                    <p:ajax event="expand" listener="#{TreeNotePage.expandTreeNode(node)}" />
+                    <p:ajax event="collapse" listener="#{TreeNotePage.collapseTreeNode(node)}" />
+                    <p:treeNode id="treenode" styleClass="custom-tree-node" 
+                                expandedIcon=""
+                                collapsedIcon="">
+                        <!--Text Area-->
+                        <p:outputPanel >
+                            <p:inputTextarea id="noteTextArea" style="#{node.style}" cols="50" rows="1" value="#{node.noteText}" maxlength="1000" >
+                                <p:ajax event="change" listener="#{TreeNotePage.updateNode(node)}"/>
+                            </p:inputTextarea>
+
+                            <!--Tree add Button-->
+                            <h:outputLabel rendered="#{TreeNotePage.delMode ne true}">
+                                <p:commandButton value="+" 
+                                                 actionListener="#{TreeNotePage.addNode(node)}" 
+                                                 class="btn call_blue"
+                                                 update="tree_form:treeBodyArea"/> 
+                                <!--icon="pi pi-plus"--> 
+                            </h:outputLabel>
+                            <span></span>
+                            
+                            <!--Tree delete Button-->
+                            <h:outputLabel rendered="#{TreeNotePage.delMode eq true}">
+                                <p:commandButton id="del_btn" value="×" 
+                                                 actionListener="#{TreeNotePage.deleteNode(node)}" 
+                                                 update="tree_form:treeBodyArea"
+                                                 rendered="#{TreeNotePage.delMode}" 
+                                                 class="btn call_red"
+                                                 style="font-size: smaller;"/>
+                                 <!--icon="pi pi-times"--> 
+                            </h:outputLabel>
+                        </p:outputPanel>
+                    </p:treeNode>
+                </p:tree>
+            </h:form>
     </h:body>
 </html>

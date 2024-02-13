@@ -27,4 +27,13 @@ public class NotesService extends BaseService{
     public List<Notes> getAll(){
         return this.notesFacade.findAll();
     }
+    
+    public List<Notes> findAllOrderBy(String EntityKey){
+        return this.notesFacade.findAllOrderBy(EntityKey);
+    }
+    
+     public List<Notes> findNotesByCategory(Integer categoryRid){
+         return this.notesFacade.findNotesByCategory(categoryRid);
+     }
+    
 }

@@ -5,6 +5,7 @@
 package com.omoscorplation.webtree.facade;
 
 //import com.omoscorplation.webtree.facade.entities.ApplistEntityManager;
+import com.omoscorplation.webtree.common.Util;
 import com.sun.org.slf4j.internal.Logger;
 import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.Dependent;
@@ -131,6 +132,23 @@ public abstract class BaseFacade<T> implements Serializable{
         jakarta.persistence.criteria.CriteriaQuery<T> cq = createCriteriaQuery(cb, this.entityClass);
         Root<T> r = cq.from(this.entityClass);
         cq.select(r);
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+    
+    /**
+     * 全検索処理
+     *
+     * @param entityKey
+     * @return entityClas
+     */
+    public List<T> findAllOrderBy(String entityKey) {
+        jakarta.persistence.criteria.CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        jakarta.persistence.criteria.CriteriaQuery<T> cq = createCriteriaQuery(cb, this.entityClass);
+        Root<T> r = cq.from(this.entityClass);
+        cq.select(r);
+        if(!Util.nb(entityKey)){
+            cq.orderBy(cb.asc(r.get(entityKey)));
+        }
         return getEntityManager().createQuery(cq).getResultList();
     }
     
