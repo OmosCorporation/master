@@ -42,6 +42,11 @@ public class Notes implements Serializable {
     @Column(name = "update_dt")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDt;
+    @Column(name = "expand")
+    private Boolean expand;
+    @Column(name = "style", length = 1000)
+    private String style;
+
 //    @OneToMany(mappedBy = "parentRid")
 //    private Collection<Notes> notesCollection;
 //    @JoinColumn(name = "parent_rid", referencedColumnName = "note_rid")
@@ -117,6 +122,22 @@ public class Notes implements Serializable {
 
     public void setParentRid(Integer parentRid) {
         this.parentRid = parentRid;
+    }
+    
+    public Boolean getExpand() {
+        return expand;
+    }
+
+    public void setExpand(Boolean expand) {
+        this.expand = expand;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 
     @Override
