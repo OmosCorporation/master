@@ -9,15 +9,16 @@
     </h:head>
     <h:body>
             <h:form id="category_form">
-                <p:outputPanel class="panel_category">
-                    <c:forEach var="entry" items="#{CategoryPage.categoryMap.entrySet()}">
-                        <label>
-                            <p:outputPanel class="category_btn">
-                                <h:outputText  value="#{entry.value}" />
-                            </p:outputPanel>
-                        </label>
+                <div class="category_class">
+                    <c:forEach var="entry" items="#{CategoryPage.categoryNameMap.entrySet()}">
+                        <div>
+                            <h:inputText  class="category_text_class" value="#{entry.value}" size="20" >
+                                <p:ajax event="change" listener="#{CategoryPage.categoryTitleUpdate(entry.value)}"/>
+                            </h:inputText>
+                            <p:commandButton value="▷" class="category_btn_class" actionListener="#{TreeNotePage.changeCategory(entry.key)}"  update="tree_form"/>
+                        </div>
                     </c:forEach>
-                </p:outputPanel>
+                </div>
             </h:form>
     </h:body>
 </html>

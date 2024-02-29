@@ -1,0 +1,43 @@
+
+/* 
+    Created on : 2023/08/22, 22:16:38
+    Change on : 2024/01/07
+    Author     : Takuto Esumi
+*/
+
+/*Elements*/
+form .hexagon1 {
+	margin-top: 40px;
+	width: 88px;
+	height: 50px;
+	background: #aaa;
+	position: relative;
+}
+form .hexagon1 .text {
+	height: 100%;
+	font-size: 16px;
+	font-weight: bold;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+}
+form .hexagon1::before,
+form .hexagon1::after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #aaa;
+	z-index: 0;
+}
+form .hexagon1::before {
+	transform: rotate(60deg);
+}
+form .hexagon1::after {
+	transform: rotate(-60deg);
+}

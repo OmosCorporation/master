@@ -6,66 +6,98 @@
     <h:head>
         <title><h:outputText value="#{TreeNotePage.pageTabName}" /></title>
         <h:outputStylesheet library="css" name="custom_tree.css"/>
+        <h:outputStylesheet library="css" name="omos_basic.css"/>
     </h:head>
     <h:body>
             <h:form id="tree_form">
-                    <p:commandButton value="AddNode" actionListener="#{TreeNotePage.addRote()}"  update="tree_form:treeBodyArea"
-                                     style="background-color: #778899; color: #fff; border: 1px solid #fff; padding: 10px 60px; margin:0 0 0 0 ;"/>
-
-                    <!--Node Expand Button-->
-                    <p:commandButton  id="expandBtn" 
-                                   value="#{TreeNotePage.getExpandModeName()}" 
-                                   actionListener="#{TreeNotePage.changeExpandlMode()}" 
-                                   update="tree_form:treeBodyArea tree_form:expandBtn"
-                                   style="background-color: #778899; color: #fff; border: 1px solid #fff; padding: 10px 60px; margin:0 0 0 0 ;"/>
-                    <!--Node delete Button Off-->
-                    <p:commandButton  id="delModeBtn" 
-                                        value="#{TreeNotePage.getNameDelMode()}" 
-                                        actionListener="#{TreeNotePage.changeDelMode()}" 
-                                        update="tree_form:treeBodyArea tree_form:delModeBtn"
-                                        style="background-color: #778899; color: #fff; border: 1px solid #fff; padding: 10px 60px;"/>
-                <p:tree id="treeBodyArea" class="main_color_style" value="#{TreeNotePage.root}"  cache="false"
-                                var="node" 
-                                datakey="#{node.noteRid}"
+                <!--addNode-->
+                <p:commandButton class="function_head_btn" value="AddNode" actionListener="#{TreeNotePage.addRote()}"  update="tree_form:treeBodyArea" style=" text-align: left!important;"/>
+                <!--Node Expand Button-->
+                <p:commandButton  id="expandBtn" class="function_head_btn"
+                               value="#{TreeNotePage.getExpandModeName()}" 
+                               actionListener="#{TreeNotePage.changeExpandlMode()}" 
+                               update="tree_form:treeBodyArea tree_form:expandBtn"/>
+                <!--Node delete Button Off-->
+                <p:commandButton  id="delModeBtn" class="function_head_btn"
+                                    value="#{TreeNotePage.getNameDelMode()}" 
+                                    actionListener="#{TreeNotePage.changeDelMode()}" 
+                                    update="tree_form:treeBodyArea tree_form:delModeBtn"/>
+                <p:tree id="treeBodyArea" 
+                                class="ui-tree-custom" 
+                                value="#{TreeNotePage.root}"  
+                                cache="false"
+                                var="note" 
+                                datakey="#{note.noteRid}"
                                 dynamic="true" 
                                 animate="true"
-                                widgetVar="treeWidget" 
                                 styleClass="tree-table-class"
                                 >
-                    <p:ajax event="expand" listener="#{TreeNotePage.expandTreeNode(node)}" />
-                    <p:ajax event="collapse" listener="#{TreeNotePage.collapseTreeNode(node)}" />
-                    <p:treeNode id="treenode" styleClass="custom-tree-node" 
-                                expandedIcon=""
-                                collapsedIcon="">
-                        <!--Text Area-->
-                        <p:outputPanel >
-                            <p:inputTextarea id="noteTextArea" style="#{node.style}" cols="50" rows="1" value="#{node.noteText}" maxlength="1000" >
-                                <p:ajax event="change" listener="#{TreeNotePage.updateNode(node)}"/>
-                            </p:inputTextarea>
+                    <p:ajax event="expand" listener="#{TreeNotePage.expandTreeNode(note)}" />
+                    <p:ajax event="collapse" listener="#{TreeNotePage.collapseTreeNode(note)}" />
 
+                    <p:treeNode id="treenode" styleClass="custom-tree-node" >
+                        <label for='treenode'>
+                        <!--Text Area-->
+                            <p:inputText id="noteTextArea_#{note.noteRid}" class="noteTextAreaClass" value="#{note.noteTitle}" size="40" maxlength="1000" >
+                                <p:ajax event="click" listener="#{TreeNotePage.setEditTarget(note)}" update="tree_TextFrom"/>
+                                <p:ajax event="change" listener="#{TreeNotePage.updateNode(note)}"/>
+                            </p:inputText>
+                           
+                        <script>
+                            // noteTextAreaのIDを取得して、tooltipのfor属性に設定する
+                            var noteTextAreaId = "noteTextArea_#{note.noteRid}";
+                            $(document).ready(function() {
+                                $('[id="' + noteTextAreaId + '"]').each(function() {
+                                    var tooltipFor = $(this).attr('id');
+                                    $(this).find('.ui-tooltip').attr('for', tooltipFor);
+                                });
+                            });
+                        </script>
                             <!--Tree add Button-->
                             <h:outputLabel rendered="#{TreeNotePage.delMode ne true}">
-                                <p:commandButton value="+" 
-                                                 actionListener="#{TreeNotePage.addNode(node)}" 
+                                <p:commandButton id="nodeFunctionBtn" value="+" 
                                                  class="btn call_blue"
-                                                 update="tree_form:treeBodyArea"/> 
-                                <!--icon="pi pi-plus"--> 
+                                                 update="tree_form"
+                                                 actionListener="#{TreeNotePage.addNode(note)}" 
+                                                 oncomplete="focusNewNode('#{note.noteRid}')"
+                                                 >
+                                </p:commandButton>
+                                <script>
+                                    function focusNewNode(noteRid) {
+                                        // 新しいノードの ID を組み立てる
+                                        var newNoteId = 'tree_form:treeBodyArea:' + noteRid;
+
+                                        // 新しいノードの要素を取得
+                                        var newNode = $('#' + newNoteId + ' .noteTextAreaClass');
+
+                                        // フォーカスを設定
+                                        newNode.focus();
+                                    }
+                                </script>
                             </h:outputLabel>
-                            <span></span>
-                            
                             <!--Tree delete Button-->
                             <h:outputLabel rendered="#{TreeNotePage.delMode eq true}">
-                                <p:commandButton id="del_btn" value="×" 
-                                                 actionListener="#{TreeNotePage.deleteNode(node)}" 
-                                                 update="tree_form:treeBodyArea"
+                                <p:commandButton id="del_btn" value="-" 
+                                                 actionListener="#{TreeNotePage.deleteNode(note)}" 
+                                                 update="tree_form"
                                                  rendered="#{TreeNotePage.delMode}" 
                                                  class="btn call_red"
                                                  style="font-size: smaller;"/>
-                                 <!--icon="pi pi-times"--> 
                             </h:outputLabel>
-                        </p:outputPanel>
+                        </label>
+                        <p:tooltip for="treenode"  position="top" value="test tooltip">
+                        </p:tooltip>
                     </p:treeNode>
                 </p:tree>
+            </h:form>
+            <!--editArea-->
+            <h:form id="tree_TextFrom" class="tree_TextFormClass">
+                <div class="edit_area_title">
+                    <h:outputText class="edit_area_title_text" value="#{TreeNotePage.editTargetNote.noteTitle}"/>
+                </div>
+                <p:inputTextarea id="noteTextEditArea" class="targetClass_TextEditArea" cols="50" rows="30" maxlength="100000" value="#{TreeNotePage.editTargetNote.noteText}">
+                    <p:ajax event="change" listener="#{TreeNotePage.updateEditTarget()}"/>
+                </p:inputTextarea>
             </h:form>
     </h:body>
 </html>
