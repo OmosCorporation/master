@@ -7,23 +7,51 @@
 
 /*Elements*/
 
-body #category_form {
-    float: left;
-    
-}
-form .panel_category{
-    float: right;
-    /*border-radius:10px;*/
-   /*border: 1px solid #fff;*/ 
+#category_form {
+    padding:0000;
+    margin: 5px 5px 5px 0px;
 }
 
-form .category_btn{
-    width: 190px;
-    border-radius:16px;
-    float: left; 
-    /*background-color: #e6e6fa;*/ 
-    /*color: black;*/ 
-    border: 1px solid #fff; 
-    padding: 10px 60px; 
-    margin:0 0 3px 0 ;
+.category_class{
+    border-color: #549DB2!important;
+    border-radius: 0px!important;
 }
+
+.category_text_class{
+    color: #72C7DF!important;
+    background-color: transparent !important;
+    border-color: transparent!important;
+     font-size: 20px;
+     /*1:top,2right:,3bottom:,4left:*/
+    /*border-width: 1px 1px 1px 1px!important;*/  
+    
+    padding :0px 0px 0px 5px  !important
+    margin-bottom: 5px !important;
+    width: 100px; /* テキストの幅を固定します。 */
+    display: inline-block; /* インラインブロックとして要素を表示します。 */
+    /*overflow: hidden;  テキストのオーバーフローを隠します。 */
+    white-space: nowrap; /* テキストの折り返しを無効にします。 */
+    text-overflow: ellipsis; /* テキストが領域からはみ出した場合、省略記号で表示します。 */
+     
+}
+.category_text_class:focus{
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3), -6px -6px 12px rgba(0, 0, 0, 0.3)!important;
+        background: #3C586B!important;
+}
+
+.category_btn_class{
+    color: #72C7DF!important;
+    background-color: transparent !important;
+
+    border-color: #549DB2!important;
+    /*border-radius: 0px!important;*/
+     border-radius: 0 0 0 0!important; /* 右上の角を欠けさせる */
+    
+    /*1:top,2right:,3bottom:,4left:*/
+    /*border-width: 1px 1px 1px 3px!important;*/  
+
+    padding :2px 2px 0px 2px ;
+    /*margin : 0 0 0 5px !important;*/
+
+}
+

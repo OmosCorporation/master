@@ -8,6 +8,9 @@
         <title>Facelet Title</title>
          <style>
             body {
+                background: linear-gradient(to top, #01111E, #010C14);
+                radial-gradient(#2A4A53 100%, transparent 50%);
+                
                 margin: 0; /* デフォルトのマージンを削除 */
                 padding: 0; /* デフォルトのパディングを削除 */
                 box-sizing: border-box; /* ボックスモデルをborder-boxに設定 */
@@ -20,13 +23,24 @@
     </h:head>
     <h:body>
         <h:form style="text-align: center;">
-                <p:commandButton value="Test START" action="/test.xhtml?faces-redirect=true"  
-                                 style="background-color: lightslategray; color: #fff;  border: 1px solid #fff; padding: 10px 20px; display: block; margin: 0 auto; margin-top: 10px; cursor: pointer;"
-                                 />
+<!--                <p:commandButton value="Test START" action="/test.xhtml?faces-redirect=true"  
+                                 style="
+                                 background: none !important;
+                                 color: #72C7DF;
+                                 border-color: #549DB2 !important;
+                                 border-radius: 0px!important;
+                                 padding: 10px 20px; display: block; 
+                                 margin: 0 5px 0 0; margin-top: 10px; cursor: pointer;
+                                 "/>-->
                 <!--background-color: #778899; color: #fff;-->
-                <p:commandButton value="Tree START" action="#{IndexPage.next()}"  
-                                 style="background-color: #305471; color: #fff; border: 1px solid #fff; padding: 10px 20px; display: block; margin: 0 auto; margin-top: 10px; cursor: pointer;"
-                                 />
+                <p:commandButton value="Digital-Notes" action="#{IndexPage.next()}"  
+                                 style="
+                                 background: none !important;
+                                 color: #72C7DF;
+                                 border-color: #549DB2 !important;
+                                 border-radius: 0px!important;
+                                 padding: 10px 20px; display: block; margin: 0 auto; margin-top: 10px; cursor: pointer;
+                                 "/>
         </h:form>
     </h:body>
 </html>

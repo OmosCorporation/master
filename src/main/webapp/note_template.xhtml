@@ -2,14 +2,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>note_template</title>
+        <title>Digital Notes</title>
         <h:outputStylesheet library="css" name="template_layout.css"/>
     </h:head>
     <h:body>
         <div id="top">
-            <h:outputText value="Node Type Note" class="function_title" style="color: #305471;"/>
+            <p:outputLabel value="Digital Notes" class="function_title" />
+            
+            <body id="topForm" onload="realtimeClock()">
+                <div id="clock"/>
+            </body>
+            <script>
+                function realtimeClock(){
+                    var rtClock = new Date();
+                    var year = rtClock.getFullYear();
+                    var month = rtClock.getMonth();
+                    var day = rtClock.getDay();
+                    var hours = rtClock.getHours();
+                    var minutes = rtClock.getMinutes();
+                    var seconds = rtClock.getSeconds();
+                    hours = ("0" + hours).slice(-2);
+                    minutes = ("0" + minutes).slice(-2);
+                    seconds = ("0" + seconds).slice(-2);
+                    document.getElementById('clock').innerHTML = rtClock;
+                    var t = setTimeout(realtimeClock, 500);
+                }
+            </script>
         </div>
         <div id="left">
             <ui:insert name="left">
@@ -17,7 +38,7 @@
             </ui:insert>
         </div>
         <div id="content">
-            <ui:insert name="content">
+            <ui:insert name="content" >
                 <ui:include src="/master_tree.xhtml"/>
             </ui:insert>
         </div>

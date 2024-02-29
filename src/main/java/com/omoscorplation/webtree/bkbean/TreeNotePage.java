@@ -27,6 +27,9 @@ import org.primefaces.model.TreeNode;
 @Named("TreeNotePage")
 @ViewScoped
 public class TreeNotePage extends BasePage{
+    
+    private static final long serialVersionUID = 108478021854906487L;
+    
     public TreeNotePage() {
     }
     //<editor-fold defaultstate="collapsed" desc="Fields">
@@ -42,10 +45,11 @@ public class TreeNotePage extends BasePage{
     private String pageTabName;
     private String pageTitle;
     private EntityUtil entityUtil;
-    
-    // Category用変数
+    private Notes editTargetNote;
 
     private Map<Integer, Object> categoryMap;
+
+
 
 
     // tree用変数
@@ -83,7 +87,7 @@ public class TreeNotePage extends BasePage{
         if(!Util.nb(getRid())){
             notesList = this.notesService.findNotesByCategory(getRid());
         }else{
-            notesList = this.notesService.findAllOrderBy(entityUtil.getPrimaryKeyFieldName(Notes.class));
+            notesList = this.notesService.getAll();
         }
         this.root = new DefaultTreeNode("Root", null);
         // ノードのマップを作成（noteRidをキーとする）
@@ -94,6 +98,9 @@ public class TreeNotePage extends BasePage{
             TreeNode node = new DefaultTreeNode(note, root);
             node.setExpanded(note.getExpand());
             nodeMap.put(note.getNoteRid(), node);
+            if(Util.nb(this.editTargetNote)){
+                this.editTargetNote = note;
+            }
         }
 
         // ツリーの親子関係を設定
@@ -118,7 +125,7 @@ public class TreeNotePage extends BasePage{
         System.out.println("call initTree() by changeCategory()");
         initTree();
     }
-    
+        
     public void changeDelMode(){
         if(this.delMode){
             this.delMode = false;
@@ -192,6 +199,14 @@ public class TreeNotePage extends BasePage{
             updateNode(childNote);
         }
         updateNode(note);
+    }
+
+    public void setEditTarget(Notes note){
+        this.editTargetNote = note;
+    }
+    
+    public void updateEditTarget(){
+        this.NotesFacade.edit(this.editTargetNote);
     }
 
     public void regist(){
@@ -326,5 +341,14 @@ public class TreeNotePage extends BasePage{
     public void setCategoryMap(Map<Integer, Object> categoryMap) {
         this.categoryMap = categoryMap;
     }
+    
+    public Notes getEditTargetNote() {
+        return editTargetNote;
+    }
+
+    public void setEditTargetNote(Notes editTargetNote) {
+        this.editTargetNote = editTargetNote;
+    }
+
     //</editor-fold>
 }

@@ -4,32 +4,39 @@
     Author     : omos
 */
 * {
-    font-family: Arial !important;
+    /*font-family: MS PMincho !important;*/
+    font-family: SimSun !important;
+    
 }
 #top{
     width: 100%;
-     
-}
-#left{
-    width: 180px;
-    float: left;
-    margin: 0 0 0 0 ;
-     /*margin-left:200px;*/
-}
-#content{
-    /*width: 300px;*/
-    margin-left:200px;
-    margin-bottom: 50px;
-}
-#fotter{
-    position: fixed;
-    margin-top: 40px;
-    bottom: 0;
-    right: 0 !important;
-    /*color: #a9a9a9;*/
 }
 
 .function_title{
-    margin: 0 auto;
-    font-size:  26px;
+    font-size:  20px!important;
+    color: #72C7DF;
+}
+
+#clock{
+    font-size: 18px;
+    color: #72C7DF;
+}
+
+
+#left{
+/*    width: 180px;
+    */float: left;
+}
+#content{
+    float: left;
+    /*margin-left:200px;*/
+    /*margin-right:50px;*/
+    /*margin-bottom: 50px;*/
+}
+#fotter{
+    position: fixed;
+    /*margin-top: 40px;*/
+    bottom: 0;
+    right: 0 !important;
+    color: #72C7DF;
 }

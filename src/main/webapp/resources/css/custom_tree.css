@@ -5,106 +5,203 @@
 */
 
 body {
-    background-color: #778899 !important;
-    color: whitesmoke; /* 全体の文字色を青に設定 */
+    /*画面全体の背景色*/
+    /*width: 70%;*/
+    height: 100vh;
+    background: linear-gradient(to top, #01111E, #010C14);
+    radial-gradient(#2A4A53 100%, transparent 50%);
 }
 
-/*####### TreeToggle ########*/
-
-body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler.ui-icon-triangle-1-s:before{
-  content: "▽";
-  color: #008BBB;
+/*####### TreeNode ########*/
+#tree_form{
+        float: left;
 }
-body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler.ui-icon-triangle-1-e:before{
-  content: "▷";
-  color: #008BBB;
+
+body .ui-tree {
+    
+    background: none !important;
+    background: linear-gradient(to bottom, #001e43, #1b1b1b),
+    radial-gradient(#1b1b1b 50%, transparent 40%);
+    /*box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);  影の設定 */
+    /*ツリーコンテンツのボーダー色*/
+    /*border :none!important;*/
+/*    border-width: 1px 1px 1px 1px!important;  
+    border-color: #387D91!important;
+    border-radius: 0px!important;*/
+    border-color: #549DB2!important;
+    border-radius: 0px!important;
+}
+
+body .ui-tree-custom {
+/*    
+    background: none !important;
+    background: linear-gradient(to bottom, #001e43, #1b1b1b),
+    radial-gradient(#1b1b1b 50%, transparent 40%);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);  影の設定 
+    ツリーコンテンツのボーダー色*/
+    /*border :none!important;*/
+    border-width: 1px 1px 1px 1px!important;  
+    border-color: #387D91!important;
+    border-radius: 0px!important;
+}
+
+.categoryName_class{
+    color: #72C7DF !important;
+    
+}
+
+body #tree_form #treeBodyArea{
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+body .ui-tree .ui-tree-container .ui-treenode{
+     margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    
+}
+/*以下二つはテキストエリアの高さ調整*/
+.ui-treenode-content {
+/*    
+    padding : 0 0 0 0 !important;
+    margin : 0 0 0 0 !important;*/
+        /*margin: 0px 19px -6px -6px;*/
+
+}
+body #tree_form .ui-inputtextarea{
+/*    margin: 0 0 0 0;
+    padding: 0 0 0 0;*/
+}
+.noteTextAreaClass{
+    height:20px;
+    border: none!important;
+}
+
+/*ツリー内のテキストエリア*/
+body .ui-inputfield {
+    padding: 0rem 0rem!important;
+    background: none !important;
+    color: #72C7DF !important;
+    border-radius: 0px!important;
+    font-size: 20px!important;
 }
 
 /*#######################*/
-body .ui-treenode-content {
-    height: 30px!important;
-}
-
-body #tree_form .ui-inputtextarea{
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
-    
-    
-}
-
-body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler {
-    font-size: 12px;
-}
-
-/*Class*/
-
-/*ページタイトル*/
-.page_title {
-    font-size: 18px; /* 例: フォントサイズを18ピクセルに設定 */
-}
-
-/*アプリメインカラー*/
-.main_color_style{
-    /*background-color: #EEEEEE !important;*/
-}
-
-#tree_form .ui-button-text-only .ui-button-text {
-    margin: -9px auto;
-    padding: 0 0 0 0;
-}
-/*ID*/
-
-#tree_form {
-    width: 100%; /* 親要素も画面いっぱいに広げる */
-    box-sizing: border-box;
-}
 
 /* テキストエリア部分 */
 #tree_form .ui-inputtextarea {
-    border: none !important;
     resize: none !important;
-    /*padding: 0 0 0 0;*/
 }
 
-/*各種ボタン*/
+body .ui-button.ui-button-text-only .ui-button-text {
+    padding : 0 0 0 0 !important;
+}
 
-/*+,×ボタン*/
-#tree_form .ui-button {
-/*    width: 20px;  任意のサイズに調整してください 
-    height: 20px;  任意のサイズに調整してください */
-    /*border: none; ボーダーをなしにする */
+.noteTextAreaClass:focus{
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3), -6px -6px 12px rgba(0, 0, 0, 0.3)!important;
+        background: #3C586B!important;
+}
+
+/*####### 各種ボタン* ########*/
+/*ツリーヘッダの各種機能ボタン*/
+#tree_form .function_head_btn{
+/*    background: #3C586B !important;*/
+    background: none !important;
+    color: #72C7DF !important;
+    border-width: 1px 1px 1px 1px!important;  
+    border-color: #549DB2!important;
+    /*border-radius: 10px 89px 0px 0px / 0px 76px 0px 0px!important;*/
+    border-radius: 0 0 0 0!important;
+    /*padding: 10px 10px 10px 60px ;*/ 
+    margin-bottom: 10px;
+    padding: 0px 30px 0px 0px;
+    margin: 5px 0px 5px 0px;
+    font-size:20px!important;
+}
+
+/*ボタン*/
+body .btn  {
+        font-size: 1.2rem !important;
+        border: none !important;
+        
 }
 
 /*+ボタン*/
 #tree_form .call_blue {
-    color: lightslategray;
+    color: #387D91;
     border-color: lightslategray;
     background-color: transparent;
 }
 
+.call_blue:focus{
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3), -6px -6px 12px rgba(0, 0, 0, 0.3)!important;
+        background: #3C586B!important;
+        border-color: lightslategray;
+        border-radius: 0px!important;
+}
 /*×ボタン*/
 #tree_form .call_red {
-    color: #800000;
-    border-color: #800000;
+    color: #6C22A6 !important;
     background-color: transparent;
 }
 
-/*+,×ボタン内のテキスト部分*/
-body #tree_form .ui-button .ui-button-text {
-/*    font-size: smaller;
-    display: flex;  Flexbox を使用して中央寄せにする 
-    align-items: center;  垂直方向（縦方向）中央寄せ 
-    justify-content: center;  水平方向（横方向）中央寄せ 
-    */
+/*#######################*/
+
+/*####### TreeToggle ########*/
+.ui-icon-triangle-1-s:before{
+  content: "▽"!important;
+  color: #387D91 !important;
 }
 
-body .btn  {
-        /*padding: 0.6rem 1.2rem 0.5rem 0rem !important;*/
-        font-size: 30px !important;
-        border: none !important;
+.ui-icon-triangle-1-e:before{
+  content: "▷"!important;
+  color: #387D91 !important;
 }
 
-body .ui-button.ui-button-text-icon-left .ui-icon {
-        margin: -0.5rem !important;
-        left: 0.6rem !important;
+body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler {
+    /*font-size: 12px;*/
+    width:0;
+    height:0;
+    padding : 0 0 0 0 !important;
+    margin : 0 0 0 0 !important;
+}
+/*#######################*/
+/*textEditArea*/
+#tree_TextFrom{
+        float: left;
+}
+
+.tree_TextFormClass{
+        padding: 25px 5px 5px 5px!important;
+        margin:  0 0 0 0!important;
+}
+
+/*textEditAreaのtitle*/
+.edit_area_title{
+    border : 1px!important;
+    border-color: #387D91!important;
+    border-radius: 0px!important;
+    
+    padding: 0 0 0 0!important;
+    margin:  0 0 0 0!important;
+    
+}
+
+.edit_area_title_text{
+    font-size: 20px;
+    
+    color: #72C7DF;
+}
+
+
+.targetClass_TextEditArea{
+    border-color: #387D91!important;
+    
+    outline: 10px solid gray;
+    outline-offset: -10px;
+}
+
+.targetClass_TextEditArea:focus{
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3), -6px -6px 12px rgba(0, 0, 0, 0.3)!important;
+        border-color: #00BCD4!important;
+
 }
