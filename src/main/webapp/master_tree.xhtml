@@ -17,85 +17,41 @@
                                value="#{TreeNotePage.getExpandModeName()}" 
                                actionListener="#{TreeNotePage.changeExpandlMode()}" 
                                update="tree_form:treeBodyArea tree_form:expandBtn"/>
-                <!--Node delete Button Off-->
-                <p:commandButton  id="delModeBtn" class="function_head_btn"
-                                    value="#{TreeNotePage.getNameDelMode()}" 
-                                    actionListener="#{TreeNotePage.changeDelMode()}" 
-                                    update="tree_form:treeBodyArea tree_form:delModeBtn"/>
-                <p:tree id="treeBodyArea" 
-                                class="ui-tree-custom" 
-                                value="#{TreeNotePage.root}"  
-                                cache="false"
-                                var="note" 
-                                datakey="#{note.noteRid}"
-                                dynamic="true" 
-                                animate="true"
-                                styleClass="tree-table-class"
-                                >
+                
+                <p:tree id="treeBodyArea" class="ui-tree-custom" dynamic="true" animate="true"  
+                                value="#{TreeNotePage.root}"  cache="true" var="note" datakey="#{note.noteRid}"
+                                selectionMode="single"  selection="#{TreeNotePage.selectedNode}">
                     <p:ajax event="expand" listener="#{TreeNotePage.expandTreeNode(note)}" />
                     <p:ajax event="collapse" listener="#{TreeNotePage.collapseTreeNode(note)}" />
 
                     <p:treeNode id="treenode" styleClass="custom-tree-node" >
                         <label for='treenode'>
                         <!--Text Area-->
-                            <p:inputText id="noteTextArea_#{note.noteRid}" class="noteTextAreaClass" value="#{note.noteTitle}" size="40" maxlength="1000" >
+                            <p:inputText id="noteTextArea_#{note.noteTitle}" class="noteTextAreaClass" value="#{note.noteTitle}" size="40" maxlength="1000" >
                                 <p:ajax event="click" listener="#{TreeNotePage.setEditTarget(note)}" update="tree_TextFrom"/>
                                 <p:ajax event="change" listener="#{TreeNotePage.updateNode(note)}"/>
                             </p:inputText>
-                           
-                        <script>
-                            // noteTextAreaのIDを取得して、tooltipのfor属性に設定する
-                            var noteTextAreaId = "noteTextArea_#{note.noteRid}";
-                            $(document).ready(function() {
-                                $('[id="' + noteTextAreaId + '"]').each(function() {
-                                    var tooltipFor = $(this).attr('id');
-                                    $(this).find('.ui-tooltip').attr('for', tooltipFor);
-                                });
-                            });
-                        </script>
-                            <!--Tree add Button-->
-                            <h:outputLabel rendered="#{TreeNotePage.delMode ne true}">
-                                <p:commandButton id="nodeFunctionBtn" value="+" 
-                                                 class="btn call_blue"
-                                                 update="tree_form"
-                                                 actionListener="#{TreeNotePage.addNode(note)}" 
-                                                 oncomplete="focusNewNode('#{note.noteRid}')"
-                                                 >
-                                </p:commandButton>
-                                <script>
-                                    function focusNewNode(noteRid) {
-                                        // 新しいノードの ID を組み立てる
-                                        var newNoteId = 'tree_form:treeBodyArea:' + noteRid;
-
-                                        // 新しいノードの要素を取得
-                                        var newNode = $('#' + newNoteId + ' .noteTextAreaClass');
-
-                                        // フォーカスを設定
-                                        newNode.focus();
-                                    }
-                                </script>
-                            </h:outputLabel>
-                            <!--Tree delete Button-->
-                            <h:outputLabel rendered="#{TreeNotePage.delMode eq true}">
-                                <p:commandButton id="del_btn" value="-" 
-                                                 actionListener="#{TreeNotePage.deleteNode(note)}" 
-                                                 update="tree_form"
-                                                 rendered="#{TreeNotePage.delMode}" 
-                                                 class="btn call_red"
-                                                 style="font-size: smaller;"/>
-                            </h:outputLabel>
                         </label>
-                        <p:tooltip for="treenode"  position="top" value="test tooltip">
-                        </p:tooltip>
+<!--                        <p:tooltip for="treenode"  position="top" value="test tooltip">
+                        </p:tooltip>-->
                     </p:treeNode>
                 </p:tree>
+                <p:contextMenu for="treeBodyArea">
+                    <p:menuitem value="add new node" update="treeBodyArea" action="#{TreeNotePage.addNode}"
+                                icon="pi pi-times"/>
+                    <p:menuitem value="Delete node" update="treeBodyArea" action="#{TreeNotePage.deleteNode}"
+                                icon="pi pi-times"/>
+                </p:contextMenu>
+                
             </h:form>
             <!--editArea-->
             <h:form id="tree_TextFrom" class="tree_TextFormClass">
                 <div class="edit_area_title">
                     <h:outputText class="edit_area_title_text" value="#{TreeNotePage.editTargetNote.noteTitle}"/>
                 </div>
-                <p:inputTextarea id="noteTextEditArea" class="targetClass_TextEditArea" cols="50" rows="30" maxlength="100000" value="#{TreeNotePage.editTargetNote.noteText}">
+                <p:inputTextarea id="noteTextEditArea" class="targetClass_TextEditArea" 
+                                 cols="50" rows="30" maxlength="100000" 
+                                 value="#{TreeNotePage.editTargetNote.noteText}">
                     <p:ajax event="change" listener="#{TreeNotePage.updateEditTarget()}"/>
                 </p:inputTextarea>
             </h:form>

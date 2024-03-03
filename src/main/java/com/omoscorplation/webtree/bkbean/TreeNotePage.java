@@ -46,6 +46,7 @@ public class TreeNotePage extends BasePage{
     private String pageTitle;
     private EntityUtil entityUtil;
     private Notes editTargetNote;
+    private TreeNode selectedNode;
 
     private Map<Integer, Object> categoryMap;
 
@@ -215,7 +216,7 @@ public class TreeNotePage extends BasePage{
 //        }
     }
     
-    public void addNode(Notes targetNote){
+        public void addNode(Notes targetNote){
         
         if(!Util.nb(targetNote)){
             TreeNode targetNode = nodeMap.get(targetNote.getNoteRid());
@@ -236,7 +237,57 @@ public class TreeNotePage extends BasePage{
             targetNode.setExpanded(true);
         }
     }
+    
+    public void addNode(){
+        
+        if(!Util.nb(this.selectedNode )){
+            Notes targetNote = (Notes)this.selectedNode.getData();
+            TreeNode targetNode = nodeMap.get(targetNote.getNoteRid());
+            // notesの新規作成
+            Notes note = new Notes();
+            Date now = new Date();
+            note.setCreateDt(now);
+            note.setUpdateDt(now);
+            Notes parentNote = (Notes) targetNode.getData();
+            note.setParentRid(parentNote.getNoteRid());
+            note.setCategoryRid(parentNote.getCategoryRid());
+            note.setExpand(true);
+            note.setStyle(parentNote.getStyle());
+            this.NotesFacade.create(note);
+            //TreeNodeにnodeを新規作成
+            TreeNode node = new DefaultTreeNode(note, targetNode);
+            nodeMap.put(note.getNoteRid(), node);
+        }
+    }
 
+    public void deleteNode(){
+        if(!Util.nb(this.selectedNode)){
+            Notes targetNote = (Notes)this.selectedNode.getData();
+            TreeNode targetNode = nodeMap.get(targetNote.getNoteRid());
+            //配下のnodeがある場合全て削除
+            if(targetNode.getChildCount() > 0){
+                for(Object obj : targetNode.getChildren()){
+                    TreeNode node = (TreeNode) obj;
+                    Notes note = (Notes) node.getData();
+                    nodeMap.remove(note.getNoteRid());
+                    this.NotesFacade.remove(note, true);
+                }
+            }
+            if(!Util.nb(targetNote.getParentRid())){
+                TreeNode parentNode = nodeMap.get(targetNote.getParentRid());
+                // 不整合データでtargetNote.getParentRid()があってもnodeMapからgetできない場合がある
+                if(!Util.nb(parentNode)){
+                    parentNode.getChildren().remove(targetNode);
+                }else{
+                    nodeMap.remove(targetNote.getNoteRid());
+                }
+            }else{
+                nodeMap.remove(targetNote.getNoteRid());
+            }
+            this.NotesFacade.remove(targetNote, true);
+        }
+    }
+    
     public void deleteNode(Notes targetNote){
         if(!Util.nb(targetNote)){
             TreeNode targetNode = nodeMap.get(targetNote.getNoteRid());
@@ -350,5 +401,12 @@ public class TreeNotePage extends BasePage{
         this.editTargetNote = editTargetNote;
     }
 
+    public TreeNode getSelectedNode() {
+        return selectedNode;
+    }
+
+    public void setSelectedNode(TreeNode selectedNode) {
+        this.selectedNode = selectedNode;
+    }
     //</editor-fold>
 }
