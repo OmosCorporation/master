@@ -19,22 +19,37 @@
                 display: flex; align-items: center; justify-content: center;
                 height: 100%; /* bodyとhtml要素を100%の高さに設定 */
             }
+            /*ツリー内のテキストエリア*/
+            body .ui-inputfield .ui-inputtext .ui-widget .ui-state-default .ui-corner-all .ui-state-filled{
+                 background: linear-gradient(to top, #01111E, #010C14);
+                radial-gradient(#2A4A53 100%, transparent 50%);
+                color: #72C7DF !important;
+                border-radius: 0px!important;
+
+            }
         </style>
     </h:head>
     <h:body>
         <h:form style="text-align: center;">
-<!--                <p:commandButton value="Test START" action="/test.xhtml?faces-redirect=true"  
-                                 style="
+            <p:inputText title="Login ID" value="#{LoginPage.loginId}"
+                         style="
                                  background: none !important;
                                  color: #72C7DF;
+                                 font-size: 15px!important;
                                  border-color: #549DB2 !important;
                                  border-radius: 0px!important;
-                                 padding: 10px 20px; display: block; 
-                                 margin: 0 5px 0 0; margin-top: 10px; cursor: pointer;
-                                 "/>-->
-                <!--background-color: #778899; color: #fff;-->
-                <!--<p:commandButton value="Digital-Notes" action="#{IndexPage.next()}"-->  
-                <p:commandButton value="LOGIN" action="#{IndexPage.next()}"  
+                                 padding: 10px 20px; display: block; margin: 0 auto; margin-top: 10px; cursor: pointer;
+                                 "/>
+            <p:password title="Password" value="#{LoginPage.password}"
+                        style="
+                                 background: none !important;
+                                 color: #72C7DF;
+                                 font-size: 15px!important;
+                                 border-color: #549DB2 !important;
+                                 border-radius: 0px!important;
+                                 padding: 10px 20px; display: block; margin: 0 auto; margin-top: 10px; cursor: pointer;
+                                 "/>
+                <p:commandButton value="Play Digital Notes" action="#{LoginPage.next()}"  
                                  style="
                                  background: none !important;
                                  color: #72C7DF;

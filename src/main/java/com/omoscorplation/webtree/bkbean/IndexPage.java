@@ -19,7 +19,7 @@ public class IndexPage extends BasePage{
     }
     
     public String next(){
-        return "note_template.xhtml?faces-redirect=true";
+        return "login.xhtml?faces-redirect=true";
     
     }
 }

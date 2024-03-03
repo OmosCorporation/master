@@ -74,6 +74,16 @@ body #tree_form .ui-inputtextarea{
 .noteTextAreaClass{
     height:20px;
     border: none!important;
+    font-size: 20px!important;
+}
+
+
+body .ui-state-hover:hover{
+    background: #2f383f !important;
+}
+
+body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content.ui-state-highlight{
+    background: #2f383f !important;
 }
 
 /*ツリー内のテキストエリア*/
@@ -82,7 +92,7 @@ body .ui-inputfield {
     background: none !important;
     color: #72C7DF !important;
     border-radius: 0px!important;
-    font-size: 20px!important;
+
 }
 
 /*#######################*/
@@ -195,7 +205,7 @@ body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-togg
 
 .targetClass_TextEditArea{
     border-color: #387D91!important;
-    
+    font-size: 15px!important;
     outline: 10px solid gray;
     outline-offset: -10px;
 }
@@ -203,5 +213,33 @@ body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-togg
 .targetClass_TextEditArea:focus{
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3), -6px -6px 12px rgba(0, 0, 0, 0.3)!important;
         border-color: #00BCD4!important;
+}
 
+.targetClass_TextEditArea .ui-inputtextarea-resizable .ui-state-filled .ui-state-focus .ui-state-hover:hover{
+    background: transparent !important;
+}
+
+
+
+body .ui-menu{
+    border-color: #387D91!important;
+    border-radius: 0px!important;
+    /*background: none !important;*/
+    background:#a3abb1!important;
+    padding:0 0 0 0;
+    font-size: 20px;
+    color: #72C7DF !important;
+}
+
+body .ui-menuitem-active{
+    /*border-color: #387D91!important;*/
+    border-radius: 0px!important;
+    background:#a9b8c1!important;
+/*    padding:0 0 0 0;
+    color: #72C7DF !important;*/
+}
+
+body .ui-helper-hidden-accessible{
+        font-size: 20px;
+    
 }
