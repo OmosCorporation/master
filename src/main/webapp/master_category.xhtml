@@ -3,21 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <h:outputStylesheet library="css" name="custom_category.css"/>
     </h:head>
     <h:body>
             <h:form id="category_form">
                 <div class="category_class">
-                    <c:forEach var="entry" items="#{CategoryPage.categoryNameMap.entrySet()}">
+                    <ui:repeat var="category" value="#{CategoryPage.categoryList}" varStatus="status">
                         <div>
-                            <h:inputText  class="category_text_class" value="#{entry.value}" size="20" >
-                                <p:ajax event="change" listener="#{CategoryPage.categoryTitleUpdate(entry.value)}"/>
-                            </h:inputText>
-                            <p:commandButton value="▷" class="category_btn_class" actionListener="#{TreeNotePage.changeCategory(entry.key)}"  update="tree_form"/>
+                            <p:inputText  class="category_text_class" value="#{category.categoryName}" size="50" style="width: 200px; font-size: 2rem;">
+                                <p:ajax event="change" listener="#{CategoryPage.categoryTitleUpdate(category)}"/>
+                            </p:inputText>
+                            <p:commandButton value="▷" class="category_btn_class" actionListener="#{TreeNotePage.changeCategory(category.categoryRid)}"  update="tree_form"/>
                         </div>
-                    </c:forEach>
+                    </ui:repeat>
                 </div>
             </h:form>
     </h:body>

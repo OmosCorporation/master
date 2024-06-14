@@ -36,6 +36,31 @@ public class TestPage extends BasePage{
     private Map<String,Boolean> selectedMap = new HashMap<>();
     private List<String> selectedList = new ArrayList<>();
     private boolean validateError = false;
+    private String firstPage;
+    private List<String> firstPageItems = new ArrayList<>();
+    
+    public String getFirstPage() {
+        return firstPage;
+    }
+
+    public void setFirstPage(String firstPage) {
+        this.firstPage = firstPage;
+    }
+
+    public List<String> getFirstPageItems() {
+        return firstPageItems;
+    }
+
+    public void setFirstPageItems(List<String> firstPageItems) {
+        this.firstPageItems = firstPageItems;
+    }
+    
+    public void setItems() {
+        this.firstPageItems.add("valueA");
+        this.firstPageItems.add("valueB");
+        this.firstPageItems.add("valueC");
+    }
+    
    
     public String[] getCodes() {
         return codes;
@@ -65,7 +90,7 @@ public class TestPage extends BasePage{
                 this.selectedList.add(entry.getKey());
             }
         }
-        
+        setItems();
     }
     
     public void validationCheck() {

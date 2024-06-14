@@ -50,9 +50,6 @@ public class TreeNotePage extends BasePage{
 
     private Map<Integer, Object> categoryMap;
 
-
-
-
     // tree用変数
     private TreeNode root;
     private Map<Integer, TreeNode> nodeMap;
@@ -216,46 +213,53 @@ public class TreeNotePage extends BasePage{
 //        }
     }
     
-        public void addNode(Notes targetNote){
+    public void addNodeForParent(){
         
-        if(!Util.nb(targetNote)){
-            TreeNode targetNode = nodeMap.get(targetNote.getNoteRid());
+        if(!Util.nb(this.selectedNode )){
+            
             // notesの新規作成
             Notes note = new Notes();
             Date now = new Date();
             note.setCreateDt(now);
             note.setUpdateDt(now);
-            Notes parentNote = (Notes) targetNode.getData();
-            note.setParentRid(parentNote.getNoteRid());
-            note.setCategoryRid(parentNote.getCategoryRid());
+            if(!this.selectedNode.getParent().equals(root)){
+                Notes parentNote = (Notes)this.selectedNode.getParent().getData();
+                note.setParentRid(parentNote.getNoteRid());
+                note.setCategoryRid(parentNote.getCategoryRid());
+                note.setStyle(parentNote.getStyle());
+            }
             note.setExpand(true);
-            note.setStyle(parentNote.getStyle());
             this.NotesFacade.create(note);
             //TreeNodeにnodeを新規作成
-            TreeNode node = new DefaultTreeNode(note, targetNode);
+            this.selectedNode.setSelected(false);
+            TreeNode node = new DefaultTreeNode(note, this.selectedNode.getParent());
+            node.setExpanded(true);
+            node.setSelected(true);
             nodeMap.put(note.getNoteRid(), node);
-            targetNode.setExpanded(true);
         }
     }
     
     public void addNode(){
         
         if(!Util.nb(this.selectedNode )){
-            Notes targetNote = (Notes)this.selectedNode.getData();
-            TreeNode targetNode = nodeMap.get(targetNote.getNoteRid());
+            Notes parentNote = (Notes)this.selectedNode.getData();
+//            TreeNode targetNode = nodeMap.get(targetNote.getNoteRid());
             // notesの新規作成
             Notes note = new Notes();
             Date now = new Date();
             note.setCreateDt(now);
             note.setUpdateDt(now);
-            Notes parentNote = (Notes) targetNode.getData();
+//            Notes parentNote = (Notes) targetNode.getData();
             note.setParentRid(parentNote.getNoteRid());
             note.setCategoryRid(parentNote.getCategoryRid());
             note.setExpand(true);
             note.setStyle(parentNote.getStyle());
             this.NotesFacade.create(note);
             //TreeNodeにnodeを新規作成
-            TreeNode node = new DefaultTreeNode(note, targetNode);
+            this.selectedNode.setSelected(false);
+            TreeNode node = new DefaultTreeNode(note, this.selectedNode);
+            node.setExpanded(true);
+            node.setSelected(true);
             nodeMap.put(note.getNoteRid(), node);
         }
     }

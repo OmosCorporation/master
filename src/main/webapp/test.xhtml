@@ -9,23 +9,45 @@
     </h:head>
     <h:body>
         <h:form id="form">
-            <div class="card">
+<!--            <div class="card">
                 <p:selectManyCheckbox id="chkBoxComp" value="#{TestPage.selectedList}" >
                     <f:selectItems value="#{TestPage.masterMap.entrySet()}"  var="entry"  itemLabel="#{entry.key}" itemValue="#{entry.key}"/>
                     <p:ajax event="change" listener="#{TestPage.validationCheck()}" update="regist_btn form:errMsgComponent"  oncomplete="updateRemote()"/>
                 </p:selectManyCheckbox>
-            </div>
-            
-            <p:remoteCommand name="updateRemote" update="errMsgComponent"/>
+            </div>-->
+
+<!--            <p:remoteCommand name="updateRemote" update="errMsgComponent"/>
             <div>
                 <p:outputPanel id="errMsgComponent" >
                     <h:outputText value="ERROR MSG" rendered="#{TestPage.isNotRegist()}" />
                 </p:outputPanel>
-             <!--rendered="#{TestPage.validateError}"-->
-            </div>
+             rendered="#{TestPage.validateError}"
+            </div>-->
             
+            <p:selectOneMenu id="select_h_one_menu_firstPage" value="#{TestPage.firstPage}" class="select_h_one_menu_firstPage_target">
+                <f:selectItem itemLabel="選択してください" itemValue="0" />    
+                <f:selectItems id="testselectitem" class="select_testselectitem" value="#{TestPage.firstPageItems}" />
+            </p:selectOneMenu>
+            <script>
+                var firstcomp = document.querySelector('[id$="select_h_one_menu_firstPage"]');
+                var list = "#{TestPage.firstPageItems}";
+                firstcomp.addEventListener('click', function() {
+                    console.log('clicked');
+//                    var selectItems = document.getElementById('testselectitem');
+                    var selectItems = document.querySelector('[id$="testselectitem"]');
+                    selectItems.innerHTML = ''; // selectItems をクリアします
+                    list.forEach(function(item) {
+                        var option = document.createElement('option');
+                        option.value = item.value;
+                        option.text = item.label;
+                        selectItems.appendChild(option);
+                    });
+                }); 
+            </script>
+
+
+
             <p:commandButton  value="Back" action="/index.xhtml"/>
-            <p:commandButton id="regist_btn" value="regist" update="form" actionListener="#{TestPage.regist}" disabled="#{TestPage.isNotRegist()}"/>
             </h:form>
     </h:body>
 </html>

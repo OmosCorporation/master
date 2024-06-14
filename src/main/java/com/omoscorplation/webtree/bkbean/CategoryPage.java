@@ -37,6 +37,7 @@ public class CategoryPage extends BasePage{
     private String updateCategoryName;
     private Category targetCategory;
     private String categoryText;
+    private List<Category> categoryList;
 
     private Map<Integer, Object> categoryNameMap;
     private Map<Integer, Category> categoryMap;
@@ -55,32 +56,13 @@ public class CategoryPage extends BasePage{
         // categoryンスタンスを作成
         this.categoryMap = new HashMap<>();
         this.categoryNameMap = new HashMap<>();
-        List<Category> categoryList = this.categoryService.findAllOrderBy(entityUtil.getPrimaryKeyFieldName(Category.class));
-        for(Category category : categoryList){
-            this.categoryMap.put(category.getCategoryRid(), category);
-            this.categoryNameMap.put(category.getCategoryRid(), category.getCategoryName());
-            if(Util.nb(getRid())){
-                setRid(category.getCategoryRid());
-                this.targetCategory = category;
-                this.categoryText = this.targetCategory.getCategoryName();
-            }
-        }
+        // 画面表示用のEntityに設定
+        this.categoryList = this.categoryService.findAllOrderBy(entityUtil.getPrimaryKeyFieldName(Category.class));
     }
     
-    public void updateTarget(Integer rid){
-        for (Map.Entry<Integer, Category> entry : this.categoryMap.entrySet()) {
-            if(entry.getKey().equals(rid)){
-                Category category = (Category)entry.getValue();
-                this.targetCategory = category;
-                this.categoryText = this.targetCategory.getCategoryName();
-                break;
-            }
-        }
-   }
-
-    public void categoryTitleUpdate(String value){
-        this.targetCategory.setCategoryName(value);
-        this.categoryFacade.edit(this.targetCategory);
+    public void categoryTitleUpdate(Category category){
+        if(Util.nb(category))return;
+        this.targetCategory = category;
    }
     //</editor-fold>
     
@@ -145,5 +127,12 @@ public class CategoryPage extends BasePage{
         this.categoryMap = categoryMap;
     }
 
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
     //</editor-fold>
 }
