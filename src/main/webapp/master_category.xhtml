@@ -8,17 +8,19 @@
         <h:outputStylesheet library="css" name="custom_category.css"/>
     </h:head>
     <h:body>
-            <h:form id="category_form">
-                <div class="category_class">
+            <h:form id="categoryForm">
+                <p:scrollPanel mode="native"  class="scroll_category">
                     <ui:repeat var="category" value="#{CategoryPage.categoryList}" varStatus="status">
-                        <div>
-                            <p:inputText  class="category_text_class" value="#{category.categoryName}" size="50" style="width: 200px; font-size: 2rem;">
+                        <div class="category_class">
+                            <p:outputLabel  class="category_text_class" value="#{category.categoryName}" >
+                            </p:outputLabel>
+<!--                            <p:inputText  class="category_text_class" value="#{category.categoryName}" size="50" >
                                 <p:ajax event="change" listener="#{CategoryPage.categoryTitleUpdate(category)}"/>
-                            </p:inputText>
-                            <p:commandButton value="▷" class="category_btn_class" actionListener="#{TreeNotePage.changeCategory(category.categoryRid)}"  update="tree_form"/>
+                            </p:inputText>-->
+                            <!--<p:commandButton value="▷" class="category_btn_class" actionListener="#{TreeNotePage.changeCategory(category.categoryRid)}"  update="treeForm"/>-->
                         </div>
                     </ui:repeat>
-                </div>
+                </p:scrollPanel>
             </h:form>
     </h:body>
 </html>

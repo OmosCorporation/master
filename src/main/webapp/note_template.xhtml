@@ -2,32 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Digital Notes</title>
         <h:outputStylesheet library="css" name="template_layout.css"/>
+        <h:outputStylesheet library="css" name="normalize.css"/>
     </h:head>
     <h:body>
         <div id="top">
-            <body id="topForm" onload="realtimeClock()">
-                <div id="clock"/>
-            </body>
-            <script>
-                function realtimeClock(){
-                    var rtClock = new Date();
-                    var year = rtClock.getFullYear();
-                    var month = rtClock.getMonth();
-                    var day = rtClock.getDay();
-                    var hours = rtClock.getHours();
-                    var minutes = rtClock.getMinutes();
-                    var seconds = rtClock.getSeconds();
-                    hours = ("0" + hours).slice(-2);
-                    minutes = ("0" + minutes).slice(-2);
-                    seconds = ("0" + seconds).slice(-2);
-                    document.getElementById('clock').innerHTML = rtClock;
-                    var t = setTimeout(realtimeClock, 500);
-                }
-            </script>
+             <ui:insert name="top">
+                <ui:include src="/top.xhtml"/>
+            </ui:insert>
         </div>
         <div id="left">
             <ui:insert name="left">
@@ -39,7 +25,7 @@
                 <ui:include src="/master_tree.xhtml"/>
             </ui:insert>
         </div>
-        <div id="fotter">
+        <div id="fotter" >
             <h:outputText value="Omos Cooplation presents"/>
         </div>
     </h:body>

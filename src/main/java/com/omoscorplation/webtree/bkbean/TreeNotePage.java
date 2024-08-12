@@ -82,6 +82,7 @@ public class TreeNotePage extends BasePage{
     
     public void initTree(){
         // treeインスタンスを作成
+        // カテゴリが選択されている場合はカテゴリRidから取得（初期表示ではfalseとなる）
         if(!Util.nb(getRid())){
             notesList = this.notesService.findNotesByCategory(getRid());
         }else{
@@ -100,13 +101,12 @@ public class TreeNotePage extends BasePage{
                 this.editTargetNote = note;
             }
         }
-
+        
         // ツリーの親子関係を設定
         for (Notes note : notesList) {
-            Integer parentRid = note.getParentRid();
-            if (parentRid != null) {
+            if (!Util.nb(note.getParentRid())) {
                 // 親ノードを取得し、子ノードとして追加
-                TreeNode parentNode = nodeMap.get(parentRid);
+                TreeNode parentNode = nodeMap.get(note.getParentRid() );
                 if (parentNode != null) {
                     TreeNode currentNode = nodeMap.get(note.getNoteRid());
                     currentNode.setExpanded(note.getExpand());

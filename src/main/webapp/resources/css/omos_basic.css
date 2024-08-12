@@ -6,11 +6,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 2024/02/17, 15:11:28
     Author     : omos
 */
+* {
+    /*font-family: MS PMincho !important;*/
+    font-family: SimSun !important;
+    
+}
 
-/*#tree_form:treeBodyArea{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-image: linear-gradient(transparent 1px, #fff 1px), linear-gradient(90deg, transparent 1px, #fff 1px);
-        background-size: 20px 20px;  方眼のサイズ 
-    }*/
+#clock{
+
+    font-size: 18px;
+    color: #72C7DF;
+}
+
+.p_scrole{
+    height:85vh;    
+}
+
+.color_oldred{
+    color: chartreuse;
+    font-size: 12px!important;
+}
+
+.header_cls{
+     /*float: left;*/
+    color: chartreuse;
+    font-size: 14px!important;
+    border: 2px solid #549DB2!important;
+    background:none !important;
+/*    width : 100% !important;*/
+}

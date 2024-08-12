@@ -4,35 +4,36 @@
     Author     : Takuto Esumi
 */
 
-body {
-    /*画面全体の背景色*/
-    /*width: 70%;*/
-    height: 100vh;
-    background: linear-gradient(to top, #01111E, #010C14);
-    radial-gradient(#2A4A53 100%, transparent 50%);
-}
 
 /*####### TreeNode ########*/
-#tree_form{
+#treeForm{
         float: left;
+       
+}
+
+body .ui-scrollpanel {
+    border: 2px solid #549DB2!important;
+    background:none !important;
+    
 }
 
 body .ui-tree {
-    
-    background: none !important;
-    background: linear-gradient(to bottom, #001e43, #1b1b1b),
-    radial-gradient(#1b1b1b 50%, transparent 40%);
+     background-color:  #01111E !important;
+/*    background: linear-gradient(to bottom, #001e43, #1b1b1b),
+    radial-gradient(#1b1b1b 50%, transparent 40%);*/
     /*box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);  影の設定 */
     /*ツリーコンテンツのボーダー色*/
     /*border :none!important;*/
 /*    border-width: 1px 1px 1px 1px!important;  
     border-color: #387D91!important;
     border-radius: 0px!important;*/
-    border-color: #549DB2!important;
-    border-radius: 0px!important;
+    /*border-color: #549DB2!important;*/
+    /*border-radius: 0px!important;*/
+    border: none !important;
 }
 
 body .ui-tree-custom {
+     background-color:  #01111E !important;
 /*    
     background: none !important;
     background: linear-gradient(to bottom, #001e43, #1b1b1b),
@@ -50,7 +51,7 @@ body .ui-tree-custom {
     
 }
 
-body #tree_form #treeBodyArea{
+body #treeForm #treeBodyArea{
     margin: 0 0 0 0;
     padding: 0 0 0 0;
 }
@@ -67,12 +68,12 @@ body .ui-tree .ui-tree-container .ui-treenode{
         /*margin: 0px 19px -6px -6px;*/
 
 }
-body #tree_form .ui-inputtextarea{
+body #treeForm .ui-inputtextarea{
 /*    margin: 0 0 0 0;
     padding: 0 0 0 0;*/
 }
 .noteTextAreaClass{
-    height:20px;
+    /*height:20px;*/
     border: none!important;
     font-size: 20px!important;
 }
@@ -92,13 +93,14 @@ body .ui-inputfield {
     background: none !important;
     color: #72C7DF !important;
     border-radius: 0px!important;
-
+    /*垂直方向*/
+    vertical-align: baseline;
 }
 
 /*#######################*/
 
 /* テキストエリア部分 */
-#tree_form .ui-inputtextarea {
+#treeForm .ui-inputtextarea {
     resize: none !important;
 }
 
@@ -113,7 +115,7 @@ body .ui-button.ui-button-text-only .ui-button-text {
 
 /*####### 各種ボタン* ########*/
 /*ツリーヘッダの各種機能ボタン*/
-#tree_form .function_head_btn{
+#treeForm .function_head_btn{
 /*    background: #3C586B !important;*/
     background: none !important;
     color: #72C7DF !important;
@@ -136,7 +138,7 @@ body .btn  {
 }
 
 /*+ボタン*/
-#tree_form .call_blue {
+#treeForm .call_blue {
     color: #387D91;
     border-color: lightslategray;
     background-color: transparent;
@@ -149,7 +151,7 @@ body .btn  {
         border-radius: 0px!important;
 }
 /*×ボタン*/
-#tree_form .call_red {
+#treeForm .call_red {
     color: #6C22A6 !important;
     background-color: transparent;
 }
@@ -158,56 +160,52 @@ body .btn  {
 
 /*####### TreeToggle ########*/
 .ui-icon-triangle-1-s:before{
-  content: "▽"!important;
+  /*content: "▽"!important;*/
   color: #387D91 !important;
 }
 
 .ui-icon-triangle-1-e:before{
-  content: "▷"!important;
+  /*content: "▷"!important;*/
   color: #387D91 !important;
 }
 
 body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler {
     /*font-size: 12px;*/
     width:0;
-    height:0;
+    /*height:0;*/
     padding : 0 0 0 0 !important;
     margin : 0 0 0 0 !important;
 }
 /*#######################*/
-/*textEditArea*/
-#tree_TextFrom{
-        float: left;
-}
+/*ツリー情報編集エディタエリア*/
 
-.tree_TextFormClass{
-        padding: 25px 5px 5px 5px!important;
-        margin:  0 0 0 0!important;
+#treeDetailForm{
+        float: left;
+        padding-left: 5px;
 }
 
 /*textEditAreaのtitle*/
+.edit_area{
+}
+
 .edit_area_title{
-    border : 1px!important;
-    border-color: #387D91!important;
-    border-radius: 0px!important;
-    
-    padding: 0 0 0 0!important;
-    margin:  0 0 0 0!important;
-    
-}
-
-.edit_area_title_text{
-    font-size: 20px;
-    
+    font-size: 20px!important;
     color: #72C7DF;
+    outline: 1px solid #387D91!important;
+    outline-offset: 0px;
+    margin-bottom: 5px;
 }
 
+.edit_area_detail{
+    
+}
 
-.targetClass_TextEditArea{
+.edit_area_detail_text{
+    /*float: bottom;*/
     border-color: #387D91!important;
+    /*outline: 1px solid #387D91!important;*/
     font-size: 15px!important;
-    outline: 10px solid gray;
-    outline-offset: -10px;
+    height: 80vh;
 }
 
 .targetClass_TextEditArea:focus{

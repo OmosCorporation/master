@@ -3,40 +3,39 @@
     Created on : 2024/02/05, 18:23:54
     Author     : omos
 */
-* {
-    /*font-family: MS PMincho !important;*/
-    font-family: SimSun !important;
-    
+
+
+body {
+    /*画面全体の背景色*/
+    /*width: 70%;*/
+    /*height: 100vh;*/
+    background-color:  black;
+/*    background: linear-gradient(to top, #01111E, #010C14);
+    radial-gradient(#2A4A53 100%, transparent 50%);*/
 }
+
 #top{
-    width: 100%;
+    /*width: 100vw;*/
+    height: 5vh;
 }
-
-.function_title{
-    font-size:  20px!important;
-    color: #72C7DF;
-}
-
-#clock{
-    font-size: 18px;
-    color: #72C7DF;
-}
-
 
 #left{
-/*    width: 180px;
-    */float: left;
+    float: left;
+    width: 15vw;
 }
+
 #content{
     float: left;
+    /*height: 100vh;*/
     /*margin-left:200px;*/
     /*margin-right:50px;*/
     /*margin-bottom: 50px;*/
 }
+
 #fotter{
     position: fixed;
-    /*margin-top: 40px;*/
     bottom: 0;
     right: 0 !important;
     color: #72C7DF;
+    font-size: 16px!important;
 }

@@ -9,33 +9,28 @@
         <h:outputStylesheet library="css" name="omos_basic.css"/>
     </h:head>
     <h:body>
-            <h:form id="tree_form">
-<!--                addNode
-                <p:commandButton class="function_head_btn" value="AddNode" actionListener="#{TreeNotePage.addRote()}"  update="tree_form:treeBodyArea" style=" text-align: left!important;"/>
-                Node Expand Button
-                <p:commandButton  id="expandBtn" class="function_head_btn"
-                               value="#{TreeNotePage.getExpandModeName()}" 
-                               actionListener="#{TreeNotePage.changeExpandlMode()}" 
-                               update="tree_form:treeBodyArea tree_form:expandBtn"/>-->
-                
-                <p:tree id="treeBodyArea" class="ui-tree-custom" animate="true"  
-                        value="#{TreeNotePage.root}"  cache="true" var="note" datakey="#{note.noteRid}"  nodeVar="data"
-                                selectionMode="single"  selection="#{TreeNotePage.selectedNode}">
-                    <p:ajax event="expand" listener="#{TreeNotePage.expandTreeNode(note)}" />
-                    <p:ajax event="collapse" listener="#{TreeNotePage.collapseTreeNode(note)}" />
+            <h:form id="treeForm">
+                <p:outputLabel value="Tree-Data" class="header_cls color_oldred"/>
+                <p:scrollPanel mode="native" class="p_scrole">
+                    <p:tree id="treeBodyArea" class="ui-tree-custom" animate="false"  
+                            value="#{TreeNotePage.root}"  cache="true" var="note" datakey="#{note.noteRid}"  nodeVar="data"
+                                    selectionMode="single"  selection="#{TreeNotePage.selectedNode}">
+                        <p:ajax event="expand" listener="#{TreeNotePage.expandTreeNode(note)}" />
+                        <p:ajax event="collapse" listener="#{TreeNotePage.collapseTreeNode(note)}" />
 
-                    <p:treeNode id="treenode" styleClass="custom-tree-node" >
-                        <label for='treenode'>
-                        <!--Text Area-->
-                            <p:inputText id="noteTextArea_#{data.noteRid}" class="noteTextAreaClass" value="#{note.noteTitle}" size="40" maxlength="1000" >
-                                <p:ajax event="click" listener="#{TreeNotePage.setEditTarget(note)}" update="tree_TextFrom"/>
-                                <p:ajax event="change" listener="#{TreeNotePage.updateNode(note)}"/>
-                            </p:inputText>
-                        </label>
-<!--                        <p:tooltip for="treenode"  position="top" value="test tooltip">
-                        </p:tooltip>-->
-                    </p:treeNode>
-                </p:tree>
+                        <p:treeNode id="treenode" styleClass="custom-tree-node" >
+                            <label for='treenode'>
+                            <!--Text Area-->
+                                <p:inputText id="noteTextArea_#{data.noteRid}" class="noteTextAreaClass" value="#{note.noteTitle}" size="40" maxlength="1000" >
+                                    <p:ajax event="click" listener="#{TreeNotePage.setEditTarget(note)}" update="treeDetailForm"/>
+                                    <p:ajax event="change" listener="#{TreeNotePage.updateNode(note)}"/>
+                                </p:inputText>
+                            </label>
+    <!--                        <p:tooltip for="treenode"  position="top" value="test tooltip">
+                            </p:tooltip>-->
+                        </p:treeNode>
+                    </p:tree>
+                </p:scrollPanel>
                 <p:contextMenu for="treeBodyArea">
                     <p:menuitem value="add Parent Child" update="treeBodyArea" action="#{TreeNotePage.addNodeForParent}"
                                 icon="pi pi-times"/>
@@ -47,15 +42,16 @@
                 
             </h:form>
             <!--editArea-->
-            <h:form id="tree_TextFrom" class="tree_TextFormClass">
+            <h:form id="treeDetailForm" class="edit_area" >
                 <div class="edit_area_title">
-                    <h:outputText class="edit_area_title_text" value="#{TreeNotePage.editTargetNote.noteTitle}"/>
+                    <h:outputLabel value="#{TreeNotePage.editTargetNote.noteTitle}"/>
                 </div>
-                <p:inputTextarea id="noteTextEditArea" class="targetClass_TextEditArea" 
-                                 cols="50" rows="30" maxlength="100000" 
-                                 value="#{TreeNotePage.editTargetNote.noteText}">
-                    <p:ajax event="change" listener="#{TreeNotePage.updateEditTarget()}"/>
-                </p:inputTextarea>
+                <div class="edit_area_detail" >
+                    <p:inputTextarea id="editAreaDetail" cols="50" maxlength="100000" 
+                                     value="#{TreeNotePage.editTargetNote.noteText}" class="edit_area_detail_text">
+                        <p:ajax event="change" listener="#{TreeNotePage.updateEditTarget()}"/>
+                    </p:inputTextarea>
+                </div>
             </h:form>
     </h:body>
 </html>
